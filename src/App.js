@@ -10,7 +10,7 @@ class App extends Component {
     }
   }
 
-  handleInputUpdate = (value) => {
+  updateInput = (value) => {
     this.setState({
       searchTerm: value
     })
@@ -25,7 +25,7 @@ class App extends Component {
           BookSearch
         </header>
         <SearchBar
-          handleInputUpdate={this.handleInputUpdate}
+          updateInput={this.updateInput}
           searchTerm={searchTerm}
         />
       </div>
