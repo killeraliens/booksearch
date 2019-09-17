@@ -23,12 +23,12 @@ describe('SearchBar Component', () => {
   })
 
   it('input value matches components searchTerm prop', () => {
-    const updateInput = jest.fn();
     const tree = renderer
       .create(<SearchBar searchTerm='test-term' />)
       .toJSON();
 
-    expect(tree.children[1].props.value).toEqual('test-term');
+    const inputValue = tree.children[1].props.value;
+    expect(inputValue).toEqual('test-term');
   })
 
   it('props searchInput function called with target value', () => {

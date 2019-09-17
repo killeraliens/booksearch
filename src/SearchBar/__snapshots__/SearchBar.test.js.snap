@@ -1,28 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchBar Component input value matches component searchTerm prop 1`] = `undefined`;
-
-exports[`SearchBar Component input value matches component searchTerm prop: test-term 1`] = `undefined`;
-
-exports[`SearchBar Component input value matches searchTerm prop (app term state) 1`] = `
-<div
-  className="SearchBar"
->
-  <label
-    htmlFor="searchInput"
-  >
-    Search by Title or Author
-  </label>
-  <input
-    id="searchInput"
-    onChange={[Function]}
-    placeholder="Les Miserables"
-    type="text"
-    value="test-term"
-  />
-</div>
-`;
-
 exports[`SearchBar Component renders the UI as expected 1`] = `
 <div
   className="SearchBar"
