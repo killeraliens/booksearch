@@ -5,7 +5,8 @@ class SearchBar extends Component {
 
 
   handleChange = (e) => {
-    this.props.updateInput(e.target.value)
+    this.props.updateInput(e.target.value);
+    //this.props.callApi();
   }
 
   render() {

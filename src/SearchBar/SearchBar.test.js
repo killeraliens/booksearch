@@ -15,12 +15,19 @@ describe('SearchBar Component', () => {
   it('renders the UI as expected', () => {
     const updateInput = jest.fn();
     const tree = renderer
-      .create(<SearchBar updateInput={updateInput} searchTerm='test-term' />)
+      .create(<SearchBar updateInput={updateInput} searchTerm='test-term'/>)
       .toJSON();
-
-
+    // console.log(tree)
     expect(tree).toMatchSnapshot();
   })
+
+  // it('contains necessary props', () => {
+  //   const updateInput = jest.fn();
+  //   const wrapper = mount(<SearchBar updateInput={updateInput} searchTerm='killeraliens'/>);
+  //   console.log(wrapper.instance().props.searchTerm);
+  //   const instSearchTerm = wrapper.instance().props.searchTerm;
+  //   expect(wrapper).toMatchSnapshot()
+  // })
 
   it('input value matches components searchTerm prop', () => {
     const tree = renderer
@@ -31,7 +38,7 @@ describe('SearchBar Component', () => {
     expect(inputValue).toEqual('test-term');
   })
 
-  it('props searchInput function called with target value', () => {
+  it('input change calls updateInput function with target value', () => {
     const updateInput = jest.fn();
     const event = { target: { value: 'the-value' }  };
     const wrapper = shallow(<SearchBar updateInput={updateInput} />);
