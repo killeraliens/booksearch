@@ -79,25 +79,21 @@ class App extends Component {
   setSelected = (id) => {
     console.log(id);
     const selected = this.state.results.find(result => result.id === id);
-    const p = new Promise((resolve, reject) => {
-      resolve(
-        this.setState({
-          selected,
-          showDetails: true,
-          error: null
-        })
-      )
-    });
 
-    p.then(() => console.log(this.state.selected))
-
+    this.setState({
+      selected,
+      showDetails: true,
+      error: null
+    })
   }
+
+
 
 
   render() {
     const { searchTerm, freeFilterSelected, results, selected, showDetails } = this.state;
     const displayContent = selected && showDetails
-    ?  <div>SHOW CARD STUFF <br/> {selected.title}</div>
+    ?  <div>SHOW CARD STUFF <br/> {selected.volumeInfo.title}</div>
     :  <ResultsList
           results={results}
           setSelected={this.setSelected}
