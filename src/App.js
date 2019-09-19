@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from './SearchBar/SearchBar';
 import SearchFilter from './SearchFilter/SearchFilter';
 import ResultsList from './ResultsList/ResultsList';
+import ResultShow from './ResultShow/ResultShow';
 
 
 class App extends Component {
@@ -77,23 +78,23 @@ class App extends Component {
   }
 
   setSelected = (id) => {
-    console.log(id);
     const selected = this.state.results.find(result => result.id === id);
-
     this.setState({
       selected,
-      showDetails: true,
       error: null
     })
   }
 
-
-
+  closeSelected = () => {
+    this.setState({
+      selected: null
+    })
+  }
 
   render() {
     const { searchTerm, freeFilterSelected, results, selected, showDetails } = this.state;
-    const displayContent = selected && showDetails
-    ?  <div>SHOW CARD STUFF <br/> {selected.volumeInfo.title}</div>
+    const displayContent = selected
+    ?  <ResultShow book={selected} closeSelected={this.closeSelected}/>
     :  <ResultsList
           results={results}
           setSelected={this.setSelected}

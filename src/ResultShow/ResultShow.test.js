@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BookCard from './BookCard';
+import ResultShow from './ResultShow';
 
-describe('BookCard', () => {
+describe('ResultShow', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<BookCard />, div);
+    ReactDOM.render(<ResultShow />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 })

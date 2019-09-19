@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Enzyme, { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import SearchBar from './SearchBar';
 import renderer from 'react-test-renderer';
+import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
   it('renders without crashing', () => {
@@ -20,14 +20,6 @@ describe('SearchBar Component', () => {
     // console.log(tree)
     expect(tree).toMatchSnapshot();
   })
-
-  // it('contains necessary props', () => {
-  //   const updateInput = jest.fn();
-  //   const wrapper = mount(<SearchBar updateInput={updateInput} searchTerm='killeraliens'/>);
-  //   console.log(wrapper.instance().props.searchTerm);
-  //   const instSearchTerm = wrapper.instance().props.searchTerm;
-  //   expect(wrapper).toMatchSnapshot()
-  // })
 
   it('input value matches components searchTerm prop', () => {
     const tree = renderer
