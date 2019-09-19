@@ -20,7 +20,7 @@ class ResultsList extends Component {
 
   render() {
     const noDupes = this.filterOutDupes();
-    const cards = noDupes.map(result => <BookCard key={result.id} id={result.id} volumeInfo={result.volumeInfo} selfLink={result.selfLink} showDetails={this.props.setSelected}/>)
+    const cards = noDupes.map(result => <BookCard key={result.id} id={result.id} volumeInfo={result.volumeInfo} showDetails={this.props.setSelected}/>)
 
     return(
       <div>

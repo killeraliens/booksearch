@@ -9,8 +9,13 @@ class BookCard extends Component {
 
   render() {
     const { volumeInfo } = this.props;
-    let previewImage;
-    volumeInfo.imageLinks && 'smallThumbnail' in volumeInfo.imageLinks ? previewImage = <img className='preview-img' src={volumeInfo.imageLinks.smallThumbnail} alt={volumeInfo.title}/> : previewImage = null;
+
+    let previewImage = volumeInfo.imageLinks && 'smallThumbnail' in volumeInfo.imageLinks
+      ? <img className='preview-img'
+          src={volumeInfo.imageLinks.smallThumbnail}
+          alt={volumeInfo.title}
+        />
+      : null;
     return(
       <div className="BookCard">
         {previewImage}
