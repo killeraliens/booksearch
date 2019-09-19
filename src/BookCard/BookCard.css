@@ -1,0 +1,10 @@
+.BookCard {
+  display: flex;
+  padding: 16px;
+}
+
+.preview-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 16px;
+}

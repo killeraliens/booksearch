@@ -11,7 +11,9 @@ class App extends Component {
     this.state = {
       searchTerm: '',
       freeFilterSelected: 'All',
-      results: []
+      results: [],
+      selected: null,
+      showDetails: false
     };
   }
 
@@ -22,27 +24,20 @@ class App extends Component {
 
     p.then(() => {
       if(this.state.searchTerm !== '') {
-        this.callApi()
+        this.callApiQueryTerm()
       } else {
         this.setState({results: []})
       }
     })
   }
 
-  callApi = () => {
+  callApiQueryTerm = () => {
     let url;
-
     const apiKey = `AIzaSyBVah7n6CpYTU01YtkKDaFSf5s5RH-2wrw`;
-    url = `https://www.googleapis.com/books/v1/volumes?q=search+${this.state.searchTerm}&key=${apiKey}`;
 
-    const options = {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-type': 'application/json'
-      }
-    }
-
+    this.state.freeFilterSelected === 'Free'
+      ? url = `https://www.googleapis.com/books/v1/volumes?q=search+${this.state.searchTerm}&filter=free-ebooks&key=${apiKey}`
+      : url = `https://www.googleapis.com/books/v1/volumes?q=search+${this.state.searchTerm}&key=${apiKey}`;
     fetch(url)
       .then(resp => {
         if (!resp.ok) {
@@ -51,26 +46,63 @@ class App extends Component {
         return resp.json()
       })
       .then(respJson => {
-        console.log(respJson.items)
+        console.log(respJson)
         this.setState({
-          results: respJson.items
+          results: respJson.items,
+          error: null,
+          showDetails: false,
+          selected: null
         })
       })
       .catch(err => {
-        console.log('ERROR', {err})
+        // console.log('ERROR', {err})
+        this.setState({
+          error: err.message
+        })
       })
   }
 
-  handleSelectFreeFilter = (targetValue) => {
-    this.setState({
-     freeFilterSelected: targetValue
+  setFreeFilter = (targetValue) => {
+    const p = new Promise((resolve, reject) => {
+      resolve(this.setState({ freeFilterSelected: targetValue }))
+    });
+
+    p.then(() => {
+      if(this.state.searchTerm !== '') {
+        this.callApiQueryTerm()
+      } else {
+        this.setState({results: []})
+      }
     })
   }
 
+  setSelected = (id) => {
+    console.log(id);
+    const selected = this.state.results.find(result => result.id === id);
+    const p = new Promise((resolve, reject) => {
+      resolve(
+        this.setState({
+          selected,
+          showDetails: true,
+          error: null
+        })
+      )
+    });
+
+    p.then(() => console.log(this.state.selected))
+
+  }
 
 
   render() {
-    const { searchTerm, freeFilterSelected, results } = this.state;
+    const { searchTerm, freeFilterSelected, results, selected, showDetails } = this.state;
+    const displayContent = selected && showDetails
+    ?  <div>SHOW CARD STUFF <br/> {selected.title}</div>
+    :  <ResultsList
+          results={results}
+          setSelected={this.setSelected}
+        />
+
 
     return (
       <div className="App">
@@ -79,16 +111,13 @@ class App extends Component {
         </header>
         <SearchBar
           updateInput={this.setSearchTerm}
-
           searchTerm={searchTerm}
         />
         <SearchFilter
           freeFilterSelected={freeFilterSelected}
-          selectFreeFilter={this.handleSelectFreeFilter}
+          selectFreeFilter={this.setFreeFilter}
         />
-        <ResultsList
-          results={results}
-        />
+        {displayContent}
       </div>
     );
 
