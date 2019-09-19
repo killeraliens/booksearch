@@ -16,6 +16,7 @@ class BookCard extends Component {
           alt={volumeInfo.title}
         />
       : null;
+
     return(
       <div className="BookCard">
         {previewImage}
